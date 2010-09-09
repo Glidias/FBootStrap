@@ -50,8 +50,10 @@ URIs (parseURIs)
 the file-paths/file-extensions conventionally used in your application. For example, 
 to remotely retrieve a resultant url with token replacement, you can do something like: 
 --
+
 var url:String = URIManager.instance.getURI("twitter_id", {id:"20"});
 // Result is: "twitter.com/home?status=somedomain.com/?id=20"
+// from: <uri name="twitter_id"><![CDATA[twitter.com/home?status=somedomain.com/?id=${id}]]></uri>
 // The token is usually some object in 2nd parameter with a string key to replace ${string} values
 // ...multiple token-string-key replacement is also supported.
 
@@ -63,6 +65,7 @@ resource manager in FBootStrap need only to specify the bare file name with a gi
 eg.
 <file name="styles" uri="css" type="urlloader"/>
 // results in: css/styles.css
+// from: <uri name="css"><![CDATA[css/${filename}.css]]></uri>
 
 Settings  (parseSettings)
 This helps store serialized values into the SettingsManager. The string values in the xml
