@@ -11,7 +11,7 @@ Understanding the config file
 
 This is a basic config file:
 
-bc.<?xml version="1.0" encoding="UTF-8"?>
+bc. <?xml version="1.0" encoding="UTF-8"?>
 <config>
     <uris handler="parseURIs">
         <uri name="css"><![CDATA[css/${filename}.css]]></uri>
