@@ -25,12 +25,17 @@
  *
  * <p>Revisions<br/>
  *     2.0  Initial version Jan 7, 2009</p>
+ * 
+ * 	   2.x  Sep 9, 2010 - (Glidias) Made event specific to my BootStrap implementation (supports bulk percentage loading)
  *
  */
 
 package com.flashartofwar.fbootstrap.events
 {
-public class LoaderManagerEvent extends AbstractDataEvent
+	
+import flash.events.Event;
+
+public class LoaderManagerEvent extends Event
 {
 
     public static const COMPLETE:String = "complete";
@@ -39,6 +44,8 @@ public class LoaderManagerEvent extends AbstractDataEvent
     public static const PRELOAD_NEXT:String = "preload_next";
     public static const PROGRESS:String = "progress";
 
+	public var progressRatio:Number = 1;
+	
     /**
      * <p>Used by the LoadManager.</p>
      *
@@ -48,9 +55,20 @@ public class LoaderManagerEvent extends AbstractDataEvent
      * @param cancelable
      *
      */
-    public function LoaderManagerEvent(type:String, data:Object = null, bubbles:Boolean = false, cancelable:Boolean = false)
+    public function LoaderManagerEvent(type:String, progressRatio:Number = 1, bubbles:Boolean = false, cancelable:Boolean = false)
     {
-        super(this, type, data, bubbles, cancelable);
+        super(type, bubbles, cancelable);
+		this.progressRatio = progressRatio;
     }
+	
+	public override function clone():Event 
+	{ 
+		return new LoaderManagerEvent(type, progressRatio, bubbles, cancelable);
+	} 
+		
+	public override function toString():String 
+	{ 
+		return formatToString("LoaderManagerEvent", "type", "bubbles", "cancelable", "progressRatio"); 
+	}
 }
 }

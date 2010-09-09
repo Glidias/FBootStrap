@@ -1,6 +1,7 @@
 package com.flashartofwar.fbootstrap {
 
 import com.flashartofwar.fbootstrap.events.BootstrapEvent;
+import com.flashartofwar.fbootstrap.events.LoaderManagerEvent;
 import com.flashartofwar.fbootstrap.managers.ResourceManager;
 import com.flashartofwar.fbootstrap.managers.SettingsManager;
 import com.flashartofwar.fbootstrap.managers.SingletonManager;
@@ -23,7 +24,7 @@ public class BootStrap extends EventDispatcher {
     protected var resourceManager:ResourceManager = SingletonManager.getClassReference(ResourceManager);
 
     public function BootStrap() {
-
+		resourceManager.addEventListener(LoaderManagerEvent.PROGRESS, bubbleEvent, false , 0, true);
     }
 
     public function loadConfig(url:String):void
@@ -38,6 +39,8 @@ public class BootStrap extends EventDispatcher {
         {
             allActiveHandlersCompleted();
         }
+		
+		
     }
 
     protected function onConfigLoaded(event:Event):void
@@ -50,6 +53,7 @@ public class BootStrap extends EventDispatcher {
 
     protected function activateBootstrap(configXML:XML):void
     {
+		
         var nodes:XMLList = configXML.*;
         var node:XML;
         var handler:String;
@@ -62,11 +66,12 @@ public class BootStrap extends EventDispatcher {
             {
                 handler = node.@handler;
                 this[handler](node);
-
-            } catch(error:Error)
+            } 
+			catch(error:Error)
             {
+				
                 //Something failed.
-                throw new Error("FBootStrap Error: There was no handler for " + node.@handler);
+                throw new Error("FBootStrap Error: There was no handler for: " + node.@handler.toString() + ". Or some other error occured during handler execution:\n"+error);
             }
         }
 
@@ -96,7 +101,7 @@ public class BootStrap extends EventDispatcher {
         closeHandler("parseURIs");
     }
 
-    private function closeHandler(id:String):void {
+    protected function closeHandler(id:String):void {
 
         totalActiveHandlers --;
         dispatchEvent(new BootstrapEvent(BootstrapEvent.HANDLER_COMPLETE, {id: id}));
@@ -107,14 +112,17 @@ public class BootStrap extends EventDispatcher {
         }
     }
 
-    protected function updatePreloader(percent:Number, animated:Boolean = true):void
-    {
 
-        //TODO Fire event
-    }
 
-    protected function loadResources(data:XML):void
+	/**
+	 * Loads resources into resource manager
+	 * @param	data	XML data of nodes consisting of resources to load
+	 * @param	resourceManager	(Optional) If left unspecified, uses default current resource manager in Bootstrap
+	 */
+    protected function loadResources(data:XML, resourceManager:ResourceManager=null):void
     {
+		resourceManager = resourceManager || this.resourceManager;
+		
         var resources:XMLList = data.*;
         var resource:XML;
 
@@ -122,8 +130,8 @@ public class BootStrap extends EventDispatcher {
 
         for each (resource in resources)
         {
-            var url:String = uriManager.getURI(resource.@uri, {filename:resource.@name});
-            resourceManager.addToQueue(url, resource.@type);
+            var url:String = uriManager.getURI(resource.@uri, { filename:resource.@name } );
+            resourceManager.addToQueue(url, resource.@type, resource.@id, (resource.@perc!=undefined ? Number(resource.@perc) : 0) );
         }
 
         resourceManager.loadQueue();
@@ -134,10 +142,9 @@ public class BootStrap extends EventDispatcher {
         closeHandler("loadResrouces");
     }
 
-    protected function onLoaderProgress(event:ProgressEvent):void
+    protected function bubbleEvent(event:LoaderManagerEvent):void
     {
-        event.stopImmediatePropagation();
-        updatePreloader(event.bytesLoaded / event.bytesTotal);
+		dispatchEvent(event);
     }
 
     protected function allActiveHandlersCompleted():void
