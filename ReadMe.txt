@@ -47,8 +47,8 @@ These 3 handles are built into the library. Lets talk about each one.
 
 URIs (parseURIs)
  A uniform resource indicator (URI) is like a url format you can specify to determine 
-the file-path and file-extension conventionally used in your application. For example, 
-to remotely retrieve a result url with token replacement, you can do something like: 
+the file-paths/file-extensions conventionally used in your application. For example, 
+to remotely retrieve a resultant url with token replacement, you can do something like: 
 --
 var url:String = URIManager.instance.getURI("twitter_id", {id:"20"});
 // Result is: "twitter.com/home?status=somedomain.com/?id=20"
