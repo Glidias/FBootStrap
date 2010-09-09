@@ -11,15 +11,14 @@ Understanding the config file
 
 This is a basic config file:
 
-<code>
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
     <uris handler="parseURIs">
         <uri name="css"><![CDATA[css/${filename}.css]]></uri>
         <uri name="xml"><![CDATA[xml/${filename}.xml]]></uri>
         <uri name="swf"><![CDATA[${filename}.swf]]></uri>
-        <uri name="scripts"><![CDATA[http://www.somedomain.com/scripts/${filename}.php]]></uri>
-        <uri name="twitter_id"><![CDATA[http://www.twitter.com/home?status=http://www.somedomain.com/?id=${id}]]></uri>
+        <uri name="scripts"><![CDATA[somedomain.com/scripts/${filename}.php]]></uri>
+        <uri name="twitter_id"><![CDATA[twitter.com/home?status=http://www.somedomain.com/?id=${id}]]></uri>
     </uris>
     <resources handler="loadResources">
         <file name="styles" uri="css" type="urlloader"/>
@@ -33,7 +32,6 @@ This is a basic config file:
         <property id="siteColor" type="uint">#ffccdd</property>
     </settings>
 </config>
-</code>
 
 As you can see in this example the config is broken down into 3 parts: uris,
 settings, and resources. You can add any "data block" you would like. Each
