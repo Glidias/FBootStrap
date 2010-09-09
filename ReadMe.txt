@@ -78,9 +78,13 @@ http://github.com/theflashbum/fcss/blob/master/src/com/flashartofwar/fcss/utils/
 You can retrieve your settings remotely like:
 --
 var colorToUse:uint = SettingsManager.instance.siteColor. 
-// SettingsManager.instance is a dynamic proxy object that allows you to get properties 
-// dynamically as shown above:
-// ...note that you can't write values directly into the SettingsManager.instance though.
+// results in: 0xffccdd
+// from: <property id="siteColor" type="uint">#ffccdd</property>
+
+As you can see, SettingsManager.instance is a dynamic proxy object that allows you to get properties 
+dynamically as shown above. Note, however, that you can't write values directly into the 
+SettingsManager.instance (ie. it'll have no effect) so it's safe and your settings
+won't change.
 
 
 Instantiating the FBootStrap:
