@@ -49,7 +49,8 @@ URIs (parseURIs)
 the file-path and file-extension conventionally used in your application. For example, 
 to remotely retrieve a result url with token replacement, you can do something like: 
 --
-var url:String = URIManager.instance.getURI("twitter_id", {id:someIdFromApplication});
+var url:String = URIManager.instance.getURI("twitter_id", {id:"20"});
+// Result is: "twitter.com/home?status=somedomain.com/?id=20"
 // The token is usually some object in 2nd parameter with a string key to replace ${string} values
 // ...multiple token-string-key replacement is also supported.
 
