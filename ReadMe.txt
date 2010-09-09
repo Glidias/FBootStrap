@@ -132,21 +132,67 @@ function onBootLoaderProgress(e:LoaderManagerEvent):void {
 
 Actually, LoaderManagerEvent.PROGRESS event is dispatched from the ResourceManager class itself, 
 and is simply bubbled from the current FBootStrap instance.
-Since the ResourceManager class isn't a singleton, it can be used for other separate utility purposes
-(if you so wish) to batch load other resource-queues. (basically 1 ResourceManager per queue).
+Since the ResourceManager class itself isn't a singleton, it can be used for other separate utility purposes
+(if you so wish) to batch load other resource-queues. (basically 1 ResourceManager instance per queue).
+
+Note that the ResourceManager inside FBootStrap, however, is mapped as a singleton inside the Fbootstrap's
+SingletonManager and can be remotely accessed using the following method:
+
+import com.flashartofwar.fbootstrap.managers.SingletonManager;
+
+var resManager:ResourceManager = SingletonManager.getClassReference(ResourceManager);
+
+
+Which leads us to retrieving resources...
+
+Retrieving resources:
+---------------------
+FBootStrap in this fork supports registering file id attributes to the XML nodes for
+used to add resources to the ResourceManager.
+For example:
+<file id="customPage" name="custom_page" uri="swf" type="loader"  />
+
+Just give a unique id to each file node. If no id attribute is specified,
+the full resultant url (ie. the entire parsed uri with file name ) will be used.
+In most cases, you SHOULD provide a unique id to uniquely identify your file resource.
+
+To get your resources via the singleton approach:
+
+import com.flashartofwar.fbootstrap.managers.SingletonManager;
+// strictly typed
+var resManager:ResourceManager = SingletonManager.getClassReference(ResourceManager);
+var pageSpr:Sprite = resManager.getResource("customPage");
+
+-or-
+
+// untyped
+private var page:Sprite = SingletonManager.getClassReference(ResourceManager).getResource("customPage');
+
 
 Dependency Injection:
 ----------------------
-If you don't like to remotely retrieve settings through the Flash Art-Of-War's SettingsManager,
+If you don't like to remotely retrieve settings/resources 
+through Flash Art-Of-War's SettingsManager/ResourceManager's singleton-approach,
 , metadata dependency injection can be used in other frameworks like RobotLegs/SwiftSuspenders
-by mapping the named serialized values beforehand in an overwritten "parseSettings" method. 
+by mapping the name/id serialized values beforehand in an overwritten "parseSettings" method or
+once loading of assets for the ResourceManager has finished. 
 An example can be found here:
 (link to be included)
 
-As a result, metadata can be used to mark class member variables like:
-
+As a result, metadata can be used to mark class member variable settings like:
+<!-- XML config node -->
+<property id="siteColor" type="uint">#ffccdd</property>
+// to
 [Inject("siteColor")]
 public var siteColorToUse:uint;
+
+or
+
+<!-- XML config node -->
+<file id="customPage" name="custom_page" type="loader" uri="swf" class="com.project.pages.MyCustomPage" />
+// to
+[Inject("customPage")]
+public var myCustomPage:MyCustomPage;
 
 to mark required configuration dependencies which the injector would automatically supply
 to the given instantiated class.
