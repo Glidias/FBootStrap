@@ -83,8 +83,8 @@ var colorToUse:uint = SettingsManager.instance.siteColor.
 
 As you can see, SettingsManager.instance is a dynamic proxy object that allows you to get properties 
 dynamically as shown above. Note, however, that you can't write values directly into the 
-SettingsManager.instance (ie. it'll have no effect) so it's safe and your settings
-won't change.
+SettingsManager.instance (ie. it'll have no effect) so it's safe and your boot settings
+won't change during your application.
 
 
 Instantiating the FBootStrap:
