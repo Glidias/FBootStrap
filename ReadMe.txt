@@ -11,7 +11,8 @@ Understanding the config file
 
 This is a basic config file:
 
-bc. <?xml version="1.0" encoding="UTF-8"?>
+<code>
+<?xml version="1.0" encoding="UTF-8"?>
 <config>
     <uris handler="parseURIs">
         <uri name="css"><![CDATA[css/${filename}.css]]></uri>
@@ -32,6 +33,7 @@ bc. <?xml version="1.0" encoding="UTF-8"?>
         <property id="siteColor" type="uint">#ffccdd</property>
     </settings>
 </config>
+</code>
 
 As you can see in this example the config is broken down into 3 parts: uris,
 settings, and resources. You can add any "data block" you would like. Each
