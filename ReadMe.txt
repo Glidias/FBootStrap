@@ -95,7 +95,7 @@ var bootstrap:BootStrap = SingletonManager.getClassReference(BootStrap);
 bootstrap.addEventListener(BootstrapEvent.COMPLETE, onBootStrapComplete);
 
 // Load in a config xml
-bootstrap.loadConfig(_configURL);
+bootstrap.loadConfig("config.xml");
 
 ------------------------------------------------------------------------------------
 
