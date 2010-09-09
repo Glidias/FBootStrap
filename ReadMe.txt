@@ -59,7 +59,9 @@ Resources  (loadResources)
 Conventionally for FBootStrap, we use a single "${filename}" token for file name replacement 
 for the resource manager. As a result of using URIs, the resource file nodes passed into the 
 resource manager in FBootStrap need only to specify the bare file name with a given uri format.
-
+eg.
+<file name="styles" uri="css" type="urlloader"/>
+// results in: css/styles.css
 
 Settings  (parseSettings)
 This helps store serialized values into the SettingsManager. The string values in the xml
