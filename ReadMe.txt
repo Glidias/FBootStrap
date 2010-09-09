@@ -17,8 +17,8 @@ This is a basic config file:
         <uri name="css"><![CDATA[css/${filename}.css]]></uri>
         <uri name="xml"><![CDATA[xml/${filename}.xml]]></uri>
         <uri name="swf"><![CDATA[${filename}.swf]]></uri>
-        <uri name="scripts"><![CDATA[http://www.somedomain.com/scripts/${filename}.php]]></uri>
-        <uri name="twitter_id"><![CDATA[http://twitter.com/home?status=http://www.somedomain.com/?id=${id}]]></uri>
+        <uri name="scripts"><![CDATA[www.somedomain.com/scripts/${filename}.php]]></uri>
+        <uri name="twitter_id"><![CDATA[www.twitter.com/home?status=http://www.somedomain.com/?id=${id}]]></uri>
     </uris>
     <resources handler="loadResources">
         <file name="styles" uri="css" type="urlloader"/>
@@ -63,7 +63,7 @@ are serialized into strictly-typed values with the help of F*CSS based on the "t
 For more information on what type of serializable data types are available 
 (and how you can register your own custom functions to serialize your own data types), 
 check out:
-http://github.com/theflashbum/fcss.
+http://github.com/theflashbum/fcss/blob/master/src/com/flashartofwar/fcss/utils/TypeHelperUtil.as
 
 You can retrieve your settings remotely like:
 var colorToUse:uint = SettingsManager.instance.siteColor. 
