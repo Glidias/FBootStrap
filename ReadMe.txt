@@ -18,7 +18,7 @@ This is a basic config file:
         <uri name="xml"><![CDATA[xml/${filename}.xml]]></uri>
         <uri name="swf"><![CDATA[${filename}.swf]]></uri>
         <uri name="scripts"><![CDATA[somedomain.com/scripts/${filename}.php]]></uri>
-        <uri name="twitter_id"><![CDATA[twitter.com/home?status=http://www.somedomain.com/?id=${id}]]></uri>
+        <uri name="twitter_id"><![CDATA[twitter.com/home?status=somedomain.com/?id=${id}]]></uri>
     </uris>
     <resources handler="loadResources">
         <file name="styles" uri="css" type="urlloader"/>
