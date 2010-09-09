@@ -4,8 +4,9 @@ Welcome to FBootStrap, this is a simple library to help load in core
 assets to your Flash Application such as a config files, external
 resources, and other useful utilities.
 
-**Right now FBootStrap is dependant on F*CSS's (http://github.com/theflashbum/fcss)
-Type utility. A SWC version of this can be found in the build/libs/ directory.** 
+**Right now FBootStrap relies on a certain utility class found in 
+the F*CSS's library (http://github.com/theflashbum/fcss), known as TypeHelperUtil.
+A SWC version of this library can be found in the build/libs/ directory.** 
 
 Understanding the config file
 
