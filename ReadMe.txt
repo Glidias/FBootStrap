@@ -45,7 +45,7 @@ apart and use only the tools/managers you need).
 
 These 3 handles are built into the library. Lets talk about each one.
 
-URIs (parseURIs)
+1) URIs (parseURIs)
  A uniform resource indicator (URI) is like a url format you can specify to determine 
 the file-paths/file-extensions conventionally used in your application. For example, 
 to remotely retrieve a resultant url with token replacement, you can do something like: 
@@ -58,7 +58,7 @@ var url:String = URIManager.instance.getURI("twitter_id", {id:"20"});
 // ...multiple token-string-key replacement is also supported.
 
 
-Resources  (loadResources)
+2) Resources  (loadResources)
 Conventionally for FBootStrap, we use a single "${filename}" token for file name replacement 
 for the resource manager. As a result of using URIs, the resource file nodes passed into the 
 resource manager in FBootStrap need only to specify the bare file name with a given uri format.
@@ -67,7 +67,7 @@ eg.
 // results in: css/styles.css
 // from: <uri name="css"><![CDATA[css/${filename}.css]]></uri>
 
-Settings  (parseSettings)
+3) Settings  (parseSettings)
 This helps store serialized values into the SettingsManager. The string values in the xml
 are serialized into strictly-typed values with the help of F*CSS based on the "type" attribute.
 For more information on what type of serializable data types are available 
