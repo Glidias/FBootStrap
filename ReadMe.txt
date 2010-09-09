@@ -48,14 +48,17 @@ URIs (parseURIs)
  A uniform resource indicator (URI) is like a url format you can specify to determine 
 the file-path and file-extension conventionally used in your application. For example, 
 to remotely retrieve a result url with token replacement, you can do something like: 
+--
 var url:String = URIManager.instance.getURI("twitter_id", {id:someIdFromApplication});
 // The token is usually some object in 2nd parameter with a string key to replace ${string} values
 // ...multiple token-string-key replacement is also supported.
+
 
 Resources  (loadResources)
 Conventionally for FBootStrap, we use a single "${filename}" token for file name replacement 
 for the resource manager. As a result of using URIs, the resource file nodes passed into the 
 resource manager in FBootStrap need only to specify the bare file name with a given uri format.
+
 
 Settings  (parseSettings)
 This helps store serialized values into the SettingsManager. The string values in the xml
@@ -66,6 +69,7 @@ check out:
 http://github.com/theflashbum/fcss/blob/master/src/com/flashartofwar/fcss/utils/TypeHelperUtil.as
 
 You can retrieve your settings remotely like:
+--
 var colorToUse:uint = SettingsManager.instance.siteColor. 
 // SettingsManager.instance is a dynamic proxy object that allows you to get properties 
 // dynamically as shown above:
