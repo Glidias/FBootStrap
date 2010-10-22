@@ -20,6 +20,8 @@ public class URIManager
     //
     //--------------------------------------------------------------------------------
     private var apis:Array = [];
+	
+	public var replaceUndefineds:String = "";
 
     //--------------------------------------------------------------------------------
     //
@@ -29,7 +31,7 @@ public class URIManager
     //--------------------------------------------------------------------------------
 
     /**
-     * Constructor can only be called by the static instance method.
+     * Constructor can only be called by a static instance method.
      *
      * @param caller    The function to call the APIManager constructor function
      */
@@ -40,6 +42,10 @@ public class URIManager
             throw new Error("Error: Instantiation failed: Use GlobalDecalSheetManager.instance instead.");
         }
     }
+	
+	public static function create():URIManager {
+		return new URIManager(new SingletonEnforcer());
+	}
 
     //--------------------------------------------------------------------------------
     //
@@ -68,7 +74,7 @@ public class URIManager
     //--------------------------------------------------------------------------------
     public function addURI(name:String, method:String):void
     {
-        trace("URIManager.addURI(", name, ",", method, ")");
+       // trace("URIManager.addURI(", name, ",", method, ")");
         apis[ name ] = method;
     }
 
@@ -78,7 +84,7 @@ public class URIManager
 
         apiMethod = apis[ name ] ? apis[ name ] : "";
 
-        return TokenUtil.replaceTokens(apiMethod, token);
+        return TokenUtil.replaceTokens(apiMethod, token, replaceUndefineds);
     }
 }
 }

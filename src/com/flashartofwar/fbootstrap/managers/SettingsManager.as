@@ -42,12 +42,31 @@ dynamic public class SettingsManager extends Proxy
         {
             var temp_data:XML = data.property.(@id == propName)[0];
 
-            var value:* = TypeHelperUtil.getType(temp_data.toString(), temp_data.@type);
-            cache[propName] = value;
+			var type:String =  temp_data.@type != undefined ? temp_data.@type : "string";
+            var value:* = type!= "xml" && type != "xmlList" ? TypeHelperUtil.getType(temp_data.toString(), type) : type === "xml" ? temp_data : temp_data.children();
+			cache[propName] = value;
 
             return value;
         }
     }
+	
+	
+	public function trySetting(propName:String, defaultVal:*):* {
+		 if (cache[propName])
+        {
+            return cache[propName];
+        }
+        else
+        {
+            var temp_data:XML = data.property.(@id == propName)[0];
+			if (temp_data == null) return defaultVal;
+			var type:String =  temp_data.@type != undefined ? temp_data.@type : "string";
+            var value:* = type!= "xml" && type != "xmlList" ? TypeHelperUtil.getType(temp_data.toString(), type) : type === "xml" ? temp_data : temp_data.children();
+			cache[propName] = value;
+
+            return value;
+        }
+	}
 
     public function get data():XML
     {
